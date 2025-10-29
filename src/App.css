@@ -1,0 +1,370 @@
+.App {
+  text-align: right;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #1a3c1a 0%, #0d1f0d 100%);
+  min-height: 100vh;
+  color: #e8f5e8;
+}
+
+/* تب‌ها */
+.tabs {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #2d5a2d;
+  background: rgba(45, 90, 45, 0.3);
+  border-radius: 10px 10px 0 0;
+  backdrop-filter: blur(10px);
+}
+
+.tabs button {
+  padding: 15px 30px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 8px 8px 0 0;
+  margin-left: 5px;
+  transition: all 0.3s ease;
+  color: #c8e6c9;
+  font-weight: 500;
+}
+
+.tabs button.active {
+  background: #2d5a2d;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.tabs button:hover {
+  background: #3d6a3d;
+  transform: translateY(-2px);
+}
+
+/* محتوای تب */
+.tab-content {
+  background: #1e3a1e;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  animation: slideUp 0.5s ease;
+  border: 1px solid #2d5a2d;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* فرم */
+.form {
+  background: linear-gradient(135deg, #2d5a2d 0%, #1e3a1e 100%);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  border: 1px solid #3d6a3d;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-row input, .form-row select, textarea {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #3d6a3d;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #1e3a1e;
+  color: #e8f5e8;
+}
+
+.form-row input:focus, textarea:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.form-row input::placeholder {
+  color: #90a490;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #2d5a2d 0%, #4caf50 100%);
+  color: white;
+  padding: 18px 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+}
+
+/* input با label */
+.input-with-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-with-label label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #c8e6c9;
+  font-weight: 600;
+}
+
+/* جستجو */
+.search-section {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #2d5a2d;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #3d6a3d;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #3d6a3d;
+  border-radius: 8px;
+  font-size: 16px;
+  min-width: 250px;
+  background: #1e3a1e;
+  color: #e8f5e8;
+}
+
+.record-count {
+  background: #1e3a1e;
+  color: #c8e6c9;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #3d6a3d;
+}
+
+.refresh-btn, .excel-btn, .filter-btn, .clear-filter-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.refresh-btn {
+  background: #3d6a3d;
+  color: white;
+}
+
+.excel-btn {
+  background: #2d5a2d;
+  color: white;
+  border: 1px solid #4caf50;
+}
+
+.excel-btn:hover:not(:disabled) {
+  background: #4caf50;
+  transform: translateY(-2px);
+}
+
+.excel-btn:disabled {
+  background: #1e3a1e;
+  cursor: not-allowed;
+  border-color: #3d6a3d;
+}
+
+/* فیلتر تاریخ */
+.date-filter-section {
+  background: linear-gradient(135deg, #2d5a2d 0%, #1e3a1e 100%);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 1px solid #3d6a3d;
+}
+
+.date-inputs {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.date-inputs input {
+  padding: 12px;
+  border: 2px solid #3d6a3d;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #1e3a1e;
+  color: #e8f5e8;
+}
+
+.filter-btn {
+  background: #d4af37;
+  color: #1e3a1e;
+  font-weight: bold;
+}
+
+.clear-filter-btn {
+  background: #8b4513;
+  color: white;
+}
+
+.filter-info {
+  background: #2d5a2d;
+  color: #c8e6c9;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid #4caf50;
+}
+
+/* جدول */
+.table-container {
+  overflow-x: auto;
+  background: #1e3a1e;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  border: 1px solid #3d6a3d;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1200px;
+}
+
+th, td {
+  padding: 15px 20px;
+  text-align: right;
+  border-bottom: 1px solid #3d6a3d;
+  color: #e8f5e8;
+}
+
+th {
+  background: linear-gradient(135deg, #2d5a2d 0%, #1e3a1e 100%);
+  color: #ffffff;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  font-size: 14px;
+  border-bottom: 2px solid #4caf50;
+}
+
+tr:hover {
+  background: #2d5a2d;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+/* دکمه خروج */
+.exit-btn {
+  background: #d4af37;
+  color: #1e3a1e;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.exit-btn:hover {
+  background: #c19b2e;
+  transform: translateY(-1px);
+}
+
+/* پیام‌ها */
+.message {
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  animation: fadeIn 0.5s ease;
+}
+
+.message.success {
+  background: #2d5a2d;
+  color: #c8e6c9;
+  border: 2px solid #4caf50;
+}
+
+.message.error {
+  background: #5a2d2d;
+  color: #e6c9c9;
+  border: 2px solid #af4c4c;
+}
+
+.loading, .no-data {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+  color: #c8e6c9;
+  font-weight: 600;
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .tabs button {
+    margin: 5px 0;
+    border-radius: 8px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .search-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .date-inputs {
+    flex-direction: column;
+  }
+  
+  .tab-content {
+    padding: 20px;
+  }
+}
