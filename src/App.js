@@ -260,7 +260,7 @@ function App() {
   <div style={{flex: 1}}></div>
 </div>
             <textarea name="notes" placeholder="تێبینی" value={formData.notes} onChange={handleChange} />
-            <button type="submit" className="submit-btn">ثبت تردد</button>
+            <button type="submit" className="submit-btn">تۆمارکردن</button>
           </form>
           {message && <div className="message">{message}</div>}
           <datalist id="unit-suggestions">
