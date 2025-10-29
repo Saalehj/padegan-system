@@ -229,7 +229,7 @@ function App() {
          {/* فیلدهای زمان دستی */}
 <div className="form-row">
   <div className="input-with-label">
-    <label>کاتی هاتن (ئارەزییمەندانە)</label>
+    <label>کاتی هاتن (ئارەزومەندانە)</label>
     <input 
       type="datetime-local" 
       name="entry_time" 
@@ -238,7 +238,7 @@ function App() {
     />
   </div>
   <div className="input-with-label">
-    <label>کاتی دەرچوون (ئارەزییمەندانە)</label>
+    <label>کاتی دەرچوون (ئارەزومەندانە)</label>
     <input 
       type="datetime-local" 
       name="exit_time" 
@@ -249,7 +249,7 @@ function App() {
 </div>
 <div className="form-row">
   <div className="input-with-label">
-    <label>بەروار (ئارەزییمەندانە)</label>
+    <label>بەروار (ئارەزومەندانە)</label>
     <input 
       type="date" 
       name="date" 
