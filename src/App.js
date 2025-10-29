@@ -5,21 +5,21 @@ import { saveAs } from 'file-saver';
 import './App.css';
 
 // تابع تولید اکسل
-const exportToExcel = (data, formatGregorianDate, filename = 'تردد-پادگان') => {
+const exportToExcel = (data, formatGregorianDate, filename = 'هاتن و دەرچوون') => {
   const wb = XLSX.utils.book_new();
   
   const excelData = data.map((record, index) => ({
-    'ردیف': index + 1,
-    'نام شخص': record.person_name || '-',
-    'مدل ماشین': record.car_model || '-',
-    'شماره پلاک': record.car_number || '-',
-    'گردان': record.unit || '-',
-    'نوع شخص': record.person_type || '-',
-    'اجازه دهنده': record.permit_giver || '-',
-    'زمان ورود': record.entry_time ? formatGregorianDate(record.entry_time) : '-',
-    'زمان خروج': record.exit_time ? formatGregorianDate(record.exit_time) : '-',
-    'تاریخ': record.date || '-',
-    'توضیحات': record.notes || '-'
+    'زنجیرە': index + 1,
+    'ناو': record.person_name || '-',
+    'ئۆتۆمبێل': record.car_model || '-',
+    'ژمارەی ئۆتۆمبێل': record.car_number || '-',
+    'یەکە': record.unit || '-',
+    'پیشە': record.person_type || '-',
+    'مۆلەت پێدەر': record.permit_giver || '-',
+    'کاتی هاتن': record.entry_time ? formatGregorianDate(record.entry_time) : '-',
+    'کاتی دەرچوون': record.exit_time ? formatGregorianDate(record.exit_time) : '-',
+    'بەروار': record.date || '-',
+    'تێبینی': record.notes || '-'
   }));
 
   const ws = XLSX.utils.json_to_sheet(excelData);
@@ -97,8 +97,8 @@ function App() {
   const exportFilteredExcel = () => {
     const dataToExport = filteredByDate.length > 0 ? filteredByDate : filteredRecords;
     const filename = dateFilter.startDate || dateFilter.endDate 
-      ? `تردد-${dateFilter.startDate || 'Start'}-تا-${dateFilter.endDate || 'End'}`
-      : 'تردد-پادگان';
+      ? `هاتن و چوون-${dateFilter.startDate || 'Start'}-تاکو-${dateFilter.endDate || 'End'}`
+      : 'بازگەی-لەشکر';
     exportToExcel(dataToExport, formatGregorianDate, filename);
   };
 
@@ -110,7 +110,7 @@ function App() {
       .select('*')
       .order('id', { ascending: false });
     if (error) {
-      setMessage('خطا در دریافت داده: ' + error.message);
+      setMessage('هەلە لە وەرگرتنی زانیاری: ' + error.message);
     } else {
       setRecords(data || []);
       setFilteredRecords(data || []);
@@ -158,9 +158,9 @@ function App() {
         }]);
 
       if (error) {
-        setMessage('خطا در ثبت: ' + error.message);
+        setMessage('هەلە لە تۆمارکردن: ' + error.message);
       } else {
-        setMessage('✅ ثبت موفق! داده ذخیره شد');
+        setMessage('✅ بەسەرکەوتوویی تۆمار کرا');
         setFormData({
           person_name: '', car_model: '', car_number: '', unit: '',
           person_type: '', permit_giver: '', notes: '',
@@ -169,7 +169,7 @@ function App() {
         fetchRecords();
       }
     } catch (err) {
-      setMessage('خطا: ' + err.message);
+      setMessage('هەلە: ' + err.message);
     }
   };
 
@@ -189,13 +189,13 @@ function App() {
         .update({ exit_time: baghdadTime.toISOString() })
         .eq('id', id);
       if (error) {
-        setMessage('خطا در ثبت خروج: ' + error.message);
+        setMessage('هەلە لە تۆمارکردن خروج: ' + error.message);
       } else {
         setMessage('✅ خروج ثبت شد');
         fetchRecords();
       }
     } catch (err) {
-      setMessage('خطا: ' + err.message);
+      setMessage('هەلە: ' + err.message);
     }
   };
 
@@ -203,24 +203,24 @@ function App() {
     <div className="App" dir="rtl">
       <div className="tabs">
         <button className={activeTab === 'form' ? 'active' : ''} onClick={() => setActiveTab('form')}>
-          📝 ثبت تردد جدید
+          📝 تۆماری هاتن و دەرچوون
         </button>
         <button className={activeTab === 'list' ? 'active' : ''} onClick={() => setActiveTab('list')}>
-          📊 نمایش داده‌ها ({records.length})
+          📊 پێشاندانی داتاکان ({records.length})
         </button>
       </div>
 
       {activeTab === 'form' && (
         <div className="tab-content">
-          <h1>📝 سیستم ثبت تردد پادگان</h1>
+          <h1>📝 سیستەمی بازگەی لەشکر</h1>
           <form onSubmit={handleSubmit} className="form">
             <div className="form-row">
-              <input type="text" name="person_name" placeholder="نام شخص" value={formData.person_name} onChange={handleChange} />
-              <input type="text" name="car_model" placeholder="مدل ماشین" value={formData.car_model} onChange={handleChange} />
+              <input type="text" name="person_name" placeholder="ناو" value={formData.person_name} onChange={handleChange} />
+              <input type="text" name="car_model" placeholder="جۆری ئۆتۆمبێل" value={formData.car_model} onChange={handleChange} />
             </div>
             <div className="form-row">
-              <input type="text" name="car_number" placeholder="شماره پلاک" value={formData.car_number} onChange={handleChange} />
-              <input type="text" name="unit" placeholder="یەکە (گردان)" value={formData.unit} onChange={handleChange} list="unit-suggestions" />
+              <input type="text" name="car_number" placeholder="ژمارەی ئۆتۆمبێل" value={formData.car_number} onChange={handleChange} />
+              <input type="text" name="unit" placeholder="یەکە (بەش)" value={formData.unit} onChange={handleChange} list="unit-suggestions" />
             </div>
             <div className="form-row">
               <input type="text" name="person_type" placeholder="جۆر" value={formData.person_type} onChange={handleChange} list="type-suggestions" />
@@ -229,7 +229,7 @@ function App() {
          {/* فیلدهای زمان دستی */}
 <div className="form-row">
   <div className="input-with-label">
-    <label>زمان ورود (اختیاری)</label>
+    <label>کاتی هاتن (ئارەزییمەندانە)</label>
     <input 
       type="datetime-local" 
       name="entry_time" 
@@ -238,7 +238,7 @@ function App() {
     />
   </div>
   <div className="input-with-label">
-    <label>زمان خروج (اختیاری)</label>
+    <label>کاتی دەرچوون (ئارەزییمەندانە)</label>
     <input 
       type="datetime-local" 
       name="exit_time" 
@@ -249,7 +249,7 @@ function App() {
 </div>
 <div className="form-row">
   <div className="input-with-label">
-    <label>تاریخ (اختیاری)</label>
+    <label>بەروار (ئارەزییمەندانە)</label>
     <input 
       type="date" 
       name="date" 
@@ -264,7 +264,7 @@ function App() {
           </form>
           {message && <div className="message">{message}</div>}
           <datalist id="unit-suggestions">
-            <option value="گردان ۱" /><option value="گردان ۲" /><option value="گردان ۳" /><option value="ستاد" />
+            <option value="ب/1" /><option value="ب/2" /><option value="ب/3" /><option value="اسناد" />
           </datalist>
           <datalist id="type-suggestions">
             <option value="پێشمەرگەی لەشکر" /><option value="مێوان" /><option value="کرێکار" />
@@ -274,35 +274,35 @@ function App() {
 
       {activeTab === 'list' && (
         <div className="tab-content">
-          <h1>📊 لیست ترددها</h1>
+          <h1>📊 لیستی هاتوچۆ</h1>
           <div className="search-section">
-            <input type="text" placeholder="جستجو در همه فیلدها..." value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="search-input" />
-            <span className="record-count">تعداد: {filteredRecords.length} رکورد</span>
-            <button onClick={fetchRecords} className="refresh-btn">🔄 بروزرسانی</button>
-            <button onClick={exportFilteredExcel} className="excel-btn" disabled={filteredRecords.length === 0}>📊 خروجی Excel</button>
+            <input type="text" placeholder="گەران لە گشت بابەتەکان..." value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="search-input" />
+            <span className="record-count">تعدادی: {filteredRecords.length} تۆمار</span>
+            <button onClick={fetchRecords} className="refresh-btn">🔄 نوێکردنەوە</button>
+            <button onClick={exportFilteredExcel} className="excel-btn" disabled={filteredRecords.length === 0}>📊 دەرکردنی Excel</button>
           </div>
 
           <div className="date-filter-section">
-            <h3>📅 فیلتر بر اساس تاریخ</h3>
+            <h3>📅 فیلتەری بەروار</h3>
             <div className="date-inputs">
-              <input type="date" value={dateFilter.startDate} onChange={(e) => setDateFilter({...dateFilter, startDate: e.target.value})} placeholder="از تاریخ" />
-              <input type="date" value={dateFilter.endDate} onChange={(e) => setDateFilter({...dateFilter, endDate: e.target.value})} placeholder="تا تاریخ" />
-              <button onClick={filterByDateRange} className="filter-btn">🔍 اعمال فیلتر</button>
-              <button onClick={() => { setDateFilter({startDate: '', endDate: ''}); setFilteredByDate([]); }} className="clear-filter-btn">❌ حذف فیلتر</button>
+              <input type="date" value={dateFilter.startDate} onChange={(e) => setDateFilter({...dateFilter, startDate: e.target.value})} placeholder="لە بەروای" />
+              <input type="date" value={dateFilter.endDate} onChange={(e) => setDateFilter({...dateFilter, endDate: e.target.value})} placeholder="تا بەرواری" />
+              <button onClick={filterByDateRange} className="filter-btn">🔍 فیلتەر بکە</button>
+              <button onClick={() => { setDateFilter({startDate: '', endDate: ''}); setFilteredByDate([]); }} className="clear-filter-btn">❌ هەلگرتنی فیلتەر</button>
             </div>
             {filteredByDate.length > 0 && filteredByDate.length !== filteredRecords.length && (
-              <div className="filter-info">📊 نمایش {filteredByDate.length} رکورد از {dateFilter.startDate} تا {dateFilter.endDate}</div>
+              <div className="filter-info">📊 پێشاندانی {filteredByDate.length} تۆمار لە {dateFilter.startDate} تاکو {dateFilter.endDate}</div>
             )}
           </div>
 
           <div className="records-section">
-            {loading ? <div className="loading">در حال بارگذاری...</div> : (
+            {loading ? <div className="loading">ئامادەکردن...</div> : (
               <div className="table-container">
                 <table>
                   <thead>
                     <tr>
-                      <th>ردیف</th><th>نام شخص</th><th>مدل ماشین</th><th>شماره پلاک</th><th>گردان</th>
-                      <th>نوع شخص</th><th>اجازه دهنده</th><th>زمان ورود</th><th>زمان خروج</th><th>تاریخ</th><th>توضیحات</th><th>عملیات</th>
+                      <th>زنجیرە</th><th>ناو</th><th>جۆری ئۆتۆمبێل</th><th>ژمارەی ئۆتۆمبێل</th><th>یەکە</th>
+                      <th>پیشە</th><th>مۆلەت پێدەر</th><th>کاتی هاتن</th><th>کاتی دەرچوون</th><th>بەروار</th><th>تێبینی</th><th>پرۆسە</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -311,13 +311,13 @@ function App() {
                         <td>{index + 1}</td><td>{record.person_name || '-'}</td><td>{record.car_model || '-'}</td><td>{record.car_number || '-'}</td>
                         <td>{record.unit || '-'}</td><td>{record.person_type || '-'}</td><td>{record.permit_giver || '-'}</td>
                         <td>{formatGregorianDate(record.entry_time)}</td>
-                        <td>{record.exit_time ? formatGregorianDate(record.exit_time) : <button onClick={() => recordExit(record.id)} className="exit-btn">ثبت خروج</button>}</td>
+                        <td>{record.exit_time ? formatGregorianDate(record.exit_time) : <button onClick={() => recordExit(record.id)} className="exit-btn">تۆماری دەرچوون</button>}</td>
                         <td>{record.date || '-'}</td><td>{record.notes || '-'}</td><td></td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-                {filteredRecords.length === 0 && <div className="no-data">📭 داده‌ای یافت نشد</div>}
+                {filteredRecords.length === 0 && <div className="no-data">📭 زانیاریەکان وەرنەگیران</div>}
               </div>
             )}
           </div>
